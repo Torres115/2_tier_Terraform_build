@@ -1,15 +1,12 @@
-provider "aws" {
-  region = "us-east-2"
-}
 
 data "aws_availability_zones" "available" {
   state = "available"
 }
 
 module "Nando_vpc" {
-  source                    = "git::https://github.com/Coalfire-CF/terraform-aws-vpc-nfw.git?ref=v3.0.0"
-  vpc_name                  = "Nando_vpc"
-  cidr                      = "10.1.0.0/16"
+  source   = "git::https://github.com/Coalfire-CF/terraform-aws-vpc-nfw.git?ref=v3.0.0"
+  vpc_name = "Nando_vpc"
+  cidr     = "10.1.0.0/16"
 
   azs = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
 
@@ -25,7 +22,7 @@ module "Nando_vpc" {
       cidr              = "10.1.1.0/24"
       type              = "private"
       availability_zone = "us-east-2a"
-    },    
+    },
     {
       tag               = "BKE"
       cidr              = "10.1.2.0/24"
